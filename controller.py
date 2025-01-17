@@ -1,15 +1,22 @@
 from locker import Locker
+import queue
+
 class Controller:
+    token:str = ""
+    queue = queue.Queue()
 
-    TOKEN="dhsjkhdsj"
+    def __init__(self, token:str):
+        self.token = token
 
-    @staticmethod
-    def openLocker(locker: Locker | None)->str:
+
+    def openLocker(self, locker: Locker | None)->str:
         if locker is None:
             return "error"
 
         token = locker.controllerToken
-        if token != Controller.TOKEN:
+        if token != self.token:
             return "error"
+
+        self.queue.put((locker.lockerId, "open"))
 
         return "ok"
