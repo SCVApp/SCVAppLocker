@@ -5,9 +5,9 @@ import relays
 from locker import Locker
 from controller import Controller
 
-API_URL:str = 'http://localhost:5050'
+API_URL:str = 'https://backend.app.scv.si'
 
-controller = Controller("dhsjkhdsj")
+controller = Controller("omaricetoken")
 
 def controll_relays(locker_id:str, action:str):
     relays.board_controller(locker_id, action)
