@@ -10,8 +10,8 @@ board3_address = 0x22
 board4_address = 0x23
 
 lockers_dict = {
-    "1": [board1_address, 0],
-    "2": [board1_address, 1],
+    "1": [board1_address, 1],
+    "2": [board1_address, 2],
 }
 
 def set_pin_direction(pin, device_address):
@@ -72,3 +72,5 @@ def board_controller(locker_id:str, action:str):
         set_pin_state(pin, "high", device_address)
     else:
         set_pin_state(pin, "low", device_address)
+
+setup()
