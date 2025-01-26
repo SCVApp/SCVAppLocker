@@ -72,5 +72,3 @@ def board_controller(locker_id:str, action:str):
         set_pin_state(pin, "high", device_address)
     else:
         set_pin_state(pin, "low", device_address)
-
-setup()
