@@ -13,6 +13,7 @@ def controll_relays(locker_id:str, action:str):
     relays.board_controller(locker_id, action)
 
 def worker():
+    relays.setup()
     while True:
         locker_id, action = controller.queue.get()
         controll_relays(locker_id, action)
