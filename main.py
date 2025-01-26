@@ -13,7 +13,6 @@ def controll_relays(locker_id:str, action:str):
     relays.board_controller(locker_id, action)
 
 def worker():
-    relays.setup()
     while True:
         locker_id, action = controller.queue.get()
         controll_relays(locker_id, action)
@@ -25,6 +24,7 @@ def worker():
 worker_thread = threading.Thread(target=worker, daemon=True)
 
 def main():
+    relays.setup()
     sio = socketio.Client()
 
     @sio.on("openLocker", namespace="/lockers")
