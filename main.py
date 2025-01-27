@@ -17,9 +17,9 @@ def worker():
         locker_id, action = controller.queue.get()
         controll_relays(locker_id, action)
         if action == "open":
-            threading.Timer(1, controll_relays, args=(locker_id, "close")).start()
+            time.sleep(1)
+            controll_relays(locker_id, "close")
         controller.queue.task_done()
-        time.sleep(0.2)
 
 worker_thread = threading.Thread(target=worker, daemon=True)
 
