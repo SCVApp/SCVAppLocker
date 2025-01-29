@@ -1,18 +1,8 @@
 import smbus
+from relay_list.c500 import lockers_dict
 
 # Initialize the I2C bus
 bus = smbus.SMBus(1)
-
-# Define the addresses of the boards
-board1_address = 0x20
-board2_address = 0x21
-board3_address = 0x22
-board4_address = 0x23
-
-lockers_dict = {
-    "1": [board1_address, 1],
-    "2": [board1_address, 2],
-}
 
 def set_pin_direction(pin, device_address):
     # Determine which configuration register (0x06 or 0x07)
