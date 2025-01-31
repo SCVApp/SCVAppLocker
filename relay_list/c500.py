@@ -36,7 +36,7 @@ lockers_dict = {
     "B28": [board2_address, 12],
     "A36": [board2_address, 13],
     "B29": [board2_address, 14],
-    "non": [board2_address, 15],
+    "B30": [board2_address, 15],
     # Board 3 (16 lockers)
     "A5": [board3_address, 0],
     "A6": [board3_address, 1],
@@ -61,6 +61,6 @@ lockers_dict = {
     "B14": [board4_address, 3],
     "B22": [board4_address, 4],
     "B23": [board4_address, 5],
-    "non": [board4_address, 6],
+    "B36": [board4_address, 6],
     "B32": [board4_address, 7],
 }
