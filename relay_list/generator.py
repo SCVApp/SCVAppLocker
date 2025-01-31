@@ -53,16 +53,22 @@ output.append("lockers_dict = {")
 
 for i, address in enumerate(boards):
     print(f"Board {i+1} with address {address}")
+    print("Enter locker identifier '/' to move to the next board")
+    print("Enter locker identifier 'r' to open the locker and try again")
     number_of_lockers = int(input("Enter number of lockers: "))
     output.append(f"    # Board {i+1} ({number_of_lockers} lockers)")
     for j in range(number_of_lockers):
-        # Open the locker
-        set_pin_direction(j, address)
-        set_pin_state(j, "high", address)
-        sleep(1)
-        set_pin_state(j, "low", address)
-        # Enter locker identifier
-        lockerIdentifier = input(f"Enter locker identifier for pin {j} on board {address}: ")
+        lockerIdentifier = "r"
+        # Identify the locker until the user is satisfied
+        while lockerIdentifier == "r":
+            # Open the locker
+            set_pin_direction(j, address)
+            set_pin_state(j, "high", address)
+            sleep(1)
+            set_pin_state(j, "low", address)
+            # Enter locker identifier
+            lockerIdentifier = input(f"Enter locker identifier for pin {j} on board {address}: ")
+
         if lockerIdentifier == "/":
             break
 
