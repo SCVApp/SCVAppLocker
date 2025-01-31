@@ -3,6 +3,7 @@ from time import sleep
 
 bus = smbus.SMBus(1)
 
+
 def set_pin_direction(pin, device_address):
     # Determine which configuration register (0x06 or 0x07)
     if pin < 8:
@@ -21,6 +22,8 @@ def set_pin_direction(pin, device_address):
     bus.write_byte_data(device_address, config_reg, new_config)
 
 # Set pin state (high or low)
+
+
 def set_pin_state(pin, state, device_address):
     # Determine which output port register (0x02 or 0x03)
     if pin < 8:
@@ -41,6 +44,7 @@ def set_pin_state(pin, state, device_address):
     # Write the new state back
     bus.write_byte_data(device_address, output_reg, new_state)
 
+
 boards = [0x20, 0x21, 0x22, 0x24]
 
 output = []
@@ -55,7 +59,12 @@ for i, address in enumerate(boards):
     print(f"Board {i+1} with address {address}")
     print("Enter locker identifier '/' to move to the next board")
     print("Enter locker identifier 'r' to open the locker and try again")
-    number_of_lockers = int(input("Enter number of lockers: "))
+    number_of_lockers = 16
+    try:
+        number_of_lockers = int(input("Enter number of lockers: "))
+    except:
+        number_of_lockers = 16
+        print("Number of lockers is 16")
     output.append(f"    # Board {i+1} ({number_of_lockers} lockers)")
     for j in range(number_of_lockers):
         lockerIdentifier = "r"
@@ -67,7 +76,8 @@ for i, address in enumerate(boards):
             sleep(1)
             set_pin_state(j, "low", address)
             # Enter locker identifier
-            lockerIdentifier = input(f"Enter locker identifier for pin {j} on board {address}: ")
+            lockerIdentifier = input(
+                f"Enter locker identifier for pin {j} on board {address}: ")
 
         if lockerIdentifier == "/":
             break
