@@ -1,36 +1,66 @@
-# Define the addresses of the boards
 board1_address = 0x20
 board2_address = 0x21
 board3_address = 0x22
 board4_address = 0x24
-board5_address = 0x23
-
 lockers_dict = {
     # Board 1 (16 lockers)
-    "1": [board1_address, 1], "2": [board1_address, 2], "3": [board1_address, 3], "4": [board1_address, 4],
-    "5": [board1_address, 5], "6": [board1_address, 6], "7": [board1_address, 7], "8": [board1_address, 8],
-    "9": [board1_address, 9], "10": [board1_address, 10], "11": [board1_address, 11], "12": [board1_address, 12],
-    "13": [board1_address, 13], "14": [board1_address, 14], "15": [board1_address, 15], "16": [board1_address, 16],
-
+    "A1": [board1_address, 0],
+    "A2": [board1_address, 1],
+    "A3": [board1_address, 2],
+    "A4": [board1_address, 3],
+    "A10": [board1_address, 4],
+    "A11": [board1_address, 5],
+    "A12": [board1_address, 6],
+    "A13": [board1_address, 7],
+    "A19": [board1_address, 8],
+    "A20": [board1_address, 9],
+    "A21": [board1_address, 10],
+    "A22": [board1_address, 11],
+    "A28": [board1_address, 12],
+    "A29": [board1_address, 13],
+    "A30": [board1_address, 14],
+    "A31": [board1_address, 15],
     # Board 2 (16 lockers)
-    "17": [board2_address, 1], "18": [board2_address, 2], "19": [board2_address, 3], "20": [board2_address, 4],
-    "21": [board2_address, 5], "22": [board2_address, 6], "23": [board2_address, 7], "24": [board2_address, 8],
-    "25": [board2_address, 9], "26": [board2_address, 10], "27": [board2_address, 11], "28": [board2_address, 12],
-    "29": [board2_address, 13], "30": [board2_address, 14], "31": [board2_address, 15], "32": [board2_address, 16],
-
+    "A9": [board2_address, 0],
+    "B1": [board2_address, 1],
+    "B2": [board2_address, 2],
+    "A18": [board2_address, 3],
+    "B10": [board2_address, 4],
+    "B11": [board2_address, 5],
+    "B3": [board2_address, 6],
+    "B12": [board2_address, 7],
+    "A27": [board2_address, 8],
+    "B19": [board2_address, 9],
+    "B20": [board2_address, 10],
+    "B21": [board2_address, 11],
+    "B28": [board2_address, 12],
+    "A36": [board2_address, 13],
+    "B29": [board2_address, 14],
+    "non": [board2_address, 15],
     # Board 3 (16 lockers)
-    "33": [board3_address, 1], "34": [board3_address, 2], "35": [board3_address, 3], "36": [board3_address, 4],
-    "37": [board3_address, 5], "38": [board3_address, 6], "39": [board3_address, 7], "40": [board3_address, 8],
-    "41": [board3_address, 9], "42": [board3_address, 10], "43": [board3_address, 11], "44": [board3_address, 12],
-    "45": [board3_address, 13], "46": [board3_address, 14], "47": [board3_address, 15], "48": [board3_address, 16],
-
-    # Board 4 (16 lockers)
-    "49": [board4_address, 1], "50": [board4_address, 2], "51": [board4_address, 3], "52": [board4_address, 4],
-    "53": [board4_address, 5], "54": [board4_address, 6], "55": [board4_address, 7], "56": [board4_address, 8],
-    "57": [board4_address, 9], "58": [board4_address, 10], "59": [board4_address, 11], "60": [board4_address, 12],
-    "61": [board4_address, 13], "62": [board4_address, 14], "63": [board4_address, 15], "64": [board4_address, 16],
-
-    # Board 5 (8 lockers)
-    "65": [board5_address, 1], "66": [board5_address, 2], "67": [board5_address, 3], "68": [board5_address, 4],
-    "69": [board5_address, 5], "70": [board5_address, 6], "71": [board5_address, 7], "72": [board5_address, 8],
+    "A5": [board3_address, 0],
+    "A6": [board3_address, 1],
+    "A7": [board3_address, 2],
+    "A8": [board3_address, 3],
+    "A14": [board3_address, 4],
+    "A15": [board3_address, 5],
+    "A16": [board3_address, 6],
+    "A17": [board3_address, 7],
+    "A23": [board3_address, 8],
+    "A24": [board3_address, 9],
+    "A25": [board3_address, 10],
+    "A26": [board3_address, 11],
+    "A32": [board3_address, 12],
+    "A33": [board3_address, 13],
+    "A34": [board3_address, 14],
+    "A35": [board3_address, 15],
+    # Board 4 (8 lockers)
+    "B4": [board4_address, 0],
+    "B5": [board4_address, 1],
+    "B13": [board4_address, 2],
+    "B14": [board4_address, 3],
+    "B22": [board4_address, 4],
+    "B23": [board4_address, 5],
+    "non": [board4_address, 6],
+    "B32": [board4_address, 7],
 }
