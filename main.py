@@ -17,6 +17,7 @@ def worker():
         locker_id, action = controller.queue.get()
         controll_relays(locker_id, action)
         if action == "open":
+            time.sleep(0.5)
             controll_relays(locker_id, "close")
         controller.queue.task_done()
 
