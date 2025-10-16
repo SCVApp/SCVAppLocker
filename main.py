@@ -36,9 +36,6 @@ def create_sio_client():
         reconnection_attempts=0,  # infinite attempts
         reconnection_delay=2,
         reconnection_delay_max=10,
-        ping_interval=25,       # matches Nest default ping interval
-        ping_timeout=10,        # respond within 10s (server gives 5s, 10 is safe)
-        heartbeat_timeout=30,   # upper bound
         logger=True,
         engineio_logger=True
     )
