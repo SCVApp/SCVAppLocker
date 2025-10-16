@@ -57,10 +57,10 @@ def create_sio_client():
         try:
             jwtToken = data
             locker = Locker.verifyToken(jwtToken)
-            controller.openLocker(locker)
+            return controller.openLocker(locker)
         except Exception as e:
             print(f"[SOCKET EVENT ERROR] {e}")
-
+            return "error"
     return sio
 
 
