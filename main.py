@@ -28,62 +28,81 @@ def worker():
 
 
 worker_thread = threading.Thread(target=worker, daemon=True)
+worker_thread.start()
+
+# --- Create a single persistent Socket.IO client ---
+sio = socketio.Client(
+    reconnection=True,
+    reconnection_attempts=0,       # infinite retries
+    reconnection_delay=2,
+    reconnection_delay_max=10,
+    logger=False,
+    engineio_logger=False,
+    ssl_verify=True
+)
+
+# --- Socket event handlers ---
+@sio.event(namespace='/lockers')
+def connect():
+    print("[SOCKET] Connected to /lockers")
+
+@sio.event(namespace='/lockers')
+def connect_error(data):
+    print(f"[SOCKET] Connection failed: {data}")
+
+@sio.event(namespace='/lockers')
+def disconnect():
+    print("[SOCKET] Disconnected. Reconnecting...")
+
+@sio.on("openLocker", namespace="/lockers")
+def openLocker(data):
+    try:
+        jwtToken = data
+        locker = Locker.verifyToken(jwtToken)
+        return controller.openLocker(locker)
+    except Exception as e:
+        print(f"[SOCKET EVENT ERROR] {e}")
+        return "error"
 
 
-def create_sio_client():
-    sio = socketio.Client(
-        reconnection=True,
-        reconnection_attempts=0,  # infinite attempts
-        reconnection_delay=2,
-        reconnection_delay_max=10,
-        logger=True,
-        engineio_logger=True
-    )
-
-    @sio.event(namespace='/lockers')
-    def connect():
-        print("[SOCKET] Connected to /lockers namespace.")
-
-    @sio.event(namespace='/lockers')
-    def connect_error(data):
-        print(f"[SOCKET] Connection failed: {data}")
-
-    @sio.event(namespace='/lockers')
-    def disconnect():
-        print("[SOCKET] Disconnected. Will attempt reconnection...")
-
-    @sio.on("openLocker", namespace="/lockers")
-    def openLocker(data):
-        try:
-            jwtToken = data
-            locker = Locker.verifyToken(jwtToken)
-            return controller.openLocker(locker)
-        except Exception as e:
-            print(f"[SOCKET EVENT ERROR] {e}")
-            return "error"
-    return sio
+# --- Connection watchdog ---
+def connection_watchdog():
+    """Keep connection alive; reconnect if dead."""
+    while True:
+        if not sio.connected:
+            try:
+                print("[WATCHDOG] Socket disconnected. Attempting reconnect...")
+                sio.connect(
+                    API_URL,
+                    namespaces=['/lockers'],
+                    headers={"token": controller.token},
+                    wait_timeout=5
+                )
+            except Exception as e:
+                print(f"[WATCHDOG ERROR] {e}")
+        time.sleep(5)
 
 
 def main():
     relays.setup()
-    sio = create_sio_client()
 
+    try:
+        sio.connect(
+            API_URL,
+            namespaces=['/lockers'],
+            headers={"token": controller.token},
+            wait_timeout=10
+        )
+    except Exception as e:
+        print(f"[SOCKET INIT ERROR] {e}")
+
+    # Start watchdog to ensure reconnection
+    threading.Thread(target=connection_watchdog, daemon=True).start()
+
+    # Keep main thread alive
     while True:
-        try:
-            print("[SOCKET] Connecting...")
-            sio.connect(
-                API_URL,
-                namespaces=['/lockers'],
-                headers={"token": controller.token},
-                wait_timeout=10
-            )
-            sio.wait()
-        except Exception as e:
-            print(f"[SOCKET ERROR] {e}")
-            print("[SOCKET] Retrying connection in 5s...")
-            time.sleep(5)
+        time.sleep(60)
 
 
 if __name__ == '__main__':
-    worker_thread.start()
     main()
